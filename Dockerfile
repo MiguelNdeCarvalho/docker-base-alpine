@@ -5,7 +5,7 @@ RUN     apk update \
         && apk upgrade \
         && apk add \
             s6 \
-	apk cache clean
+	&& apk cache clean
 ADD     root    /
 
 CMD     ["/bin/s6-svscan", "/etc/s6.d"]
