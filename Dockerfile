@@ -1,5 +1,5 @@
 FROM docker.io/alpine:3.7
-MAINTAINER Jan Christian Grünhage <jan.christian@gruenhage.xyz>
+LABEL maintainer="Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 
 ENV UID=1337 \
     GID=1337
