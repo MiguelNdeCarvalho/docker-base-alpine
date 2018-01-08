@@ -4,9 +4,10 @@ LABEL maintainer="Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 ENV UID=1337 \
     GID=1337
 
-RUN apk update \
- && apk upgrade \
+RUN apk upgrade \
+      --no-cache \
  && apk add \
+      --no-cache \
       s6 \
       su-exec
 ADD root /
