@@ -1,7 +1,24 @@
 pipeline:
-        docker:
-                image: plugins/docker
-                repo: docker.jcg.re/base-alpine
-                registry: docker.jcg.re
-                secrets: [ docker_username, docker_password ]
-                tags: latest
+  docker:
+    image: plugins/docker
+    repo: docker.jcg.re/base-alpine
+    registry: docker.jcg.re
+    secrets: [ docker_username, docker_password ]
+    tags: latest
+
+  trigger_downstream:
+    image: plugins/downstream
+    server: https://drone.jcg.re
+    fork: true
+    secrets: [downstream_token]
+    wait: true
+    repositories:
+      - jcgruenhage/docker-synapse
+      - jcgruenhage/docker-coturn
+      - jcgruenhage/docker-dehydrated
+      - jcgruenhage/docker-media-repo
+      - jcgruenhage/docker-base-caddy
+      - jcgruenhage/docker-emby
+      - jcgruenhage/docker-nextcloud
+      - jcgruenhage/docker-airsonic
+      - jcgruenhage/docker-searx
