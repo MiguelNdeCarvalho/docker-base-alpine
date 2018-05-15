@@ -1,16 +1,15 @@
-# docker.jcg.re/base-alpine
-[![Build Status](https://drone.jcg.re/api/badges/jcgruenhage/docker-base-alpine/status.svg)](https://drone.jcg.re/jcgruenhage/docker-base-alpine)
+# docker.io/matrixdotorg/base-alpine
 
-A small base image based on [Alpine Linux](https://www.alpinelinux.org/) (current stable release) and 
-[s6](http://www.skarnet.org/software/s6/index.html).
+A small base image based on [Alpine Linux](https://www.alpinelinux.org/) (current stable release) and
+[s6](http://www.skarnet.org/software/s6/index.html). We do not support this further than needed for our usage, but feel free to use it if you want.
 
 ### Building on top of this
 
 To build on top of this image, you can base a Dockerfile on this:
 
 ```dockerfile
-FROM docker.jcg.re/base-alpine
-MAINTAINER Your Name <your@email.adress>
+FROM docker.io/matrixdotorg/base-alpine
+LABEL maintainer="Your Name <your@mail.xyz>"
 
 RUN echo "install stuff here"
 
@@ -37,6 +36,14 @@ The folder your-service should contain three executables:
 
 Also, your-service is an example name, you should replace it with the name of the software running in there.
 
+To play nice in a docker ecosystem, you want your container to stop when your main process dies,
+so put this into your main services finish file:
+
+```
+#!/bin/sh
+s6-svscanctl -t /etc/s6
+```
+
 
 Inside the `/etc/periodic` folder, there are 5 folders:
  - 15min
@@ -45,7 +52,6 @@ Inside the `/etc/periodic` folder, there are 5 folders:
  - weekly
  - monthly
 
-Inside those, you can put executable shell scripts (starting with `#!/bin/sh`), 
-and they'll be executed regularly in the specified interval. 
-
+Inside those, you can put executable shell scripts (starting with `#!/bin/sh`),
+and they'll be executed regularly in the specified interval.
 For custom intervals, you can always edit crontab.
